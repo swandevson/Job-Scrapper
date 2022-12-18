@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='home.css')}}" />
+    <title>repl.it</title>
+    
+    
+  </head>
+
+
+  <body>
+    <div class="content">
+      <div id="search-box">
+          <h1 id="title-name">Find & Get Your Jobs !</h1>
+          <form action ="./result" method="get">
+            <div id="search-place">
+              <input id="search-bar" placeholder="Search for jobs" required name="keyword" />
+              <button type="submit" id="search-button"><img src = "{{url_for('static', filename='icon/search-icon.png')}}" /></button>
+            </div>
+          </form>
+        <div id="search-engine-content">
+            <h3 id="search-engined-by">Search Engined By</h3>
+            <span class="search-engine">
+              <a href="https://stackoverflow.com/" target="_black"><img src="{{url_for('static', filename='icon/stackoverflow-logo.png')}}" /></a>
+            </span>
+            <span class="search-engine">
+              <a href="https://kr.indeed.com/" target="_black"><img src="{{url_for('static', filename='icon/indeed-logo.png')}}" /></a>
+            </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

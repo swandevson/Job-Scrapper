@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!-- 커서 올리면 올리면 왼쪽 보더에 불 들어오고 배경 살짝 회색인 형식으로 ㄱㄱ -->
+<html>
+
+<head>
+	<title>Search Results</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+	<style>
+		body {
+			width: 100vw;
+			max-width: 100%;
+			height: 100vh;
+		}
+
+
+
+		#top-nav {
+			position: fixed;
+			z-index: 9999;
+
+			width: 100%;
+			height: 200px;
+
+			padding-left: 30px;
+
+			background-image: url("{{url_for('static', filename='icon/search-background.jpg')}}");
+			background-size: cover;
+		}
+
+
+		#title-name {
+			margin: 30px 0 45px 0;
+			display: inline-block;
+			text-align: left;
+
+			color: white;
+			font-size: 50px;
+			text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black;
+		}
+
+
+		#remote-nav {
+			display: inline-block;
+			position: absolute;
+			right: 50px;
+
+			font-size: 20px;
+		}
+
+		#remote-nav a {
+			text-decoration: none;
+			color: white;
+		}
+
+		#remote-nav a:hover {
+			text-decoration: underline;
+		}
+
+
+
+
+		#search-bar {
+			height: 30px;
+			width: 530px;
+			margin-right: 10px;
+		}
+
+		#search-button img {
+			height: 35px;
+			width: 35px;
+		}
+
+
+		#container-top-wrapper {
+			position: fixed;
+			z-index: 9990;
+
+			width: 100%;
+
+			outline: grey solid 2px;
+
+			background: white;
+			padding-top: 225px;
+		}
+
+
+		.container-top-content {
+			display: inline-block;
+
+			margin: 10px 20px;
+			padding: 0;
+		}
+
+		#result-num {
+			float: left;
+		}
+
+		#export-anchor {
+			float: right;
+		}
+
+
+
+		#job-container {
+			padding-top: 280px;
+			display: grid;
+			outline: 3px solid black;
+			grid-auto-columns: minmax(100%, 100%);
+		}
+
+
+
+		.job-rows-content {
+			grid-template-rows: repeat(2, 3fr, 1fr);
+
+			padding-left: 20px;
+			outline: 1px solid grey;
+
+		}
+		.job-rows-content,
+		.job-rows-content:link,
+    .job-rows-content:visited {
+			text-decoration: none;
+			color: black;
+		}
+		.job-rows-content:hover {
+			border-left: 15px solid #00A5FF;
+			background: rgba(0, 0, 0, 0.05);
+		}
+
+		.job-content-coloc {
+			margin-bottom: 10px;
+		}
+    
+    .job-content-location {
+      color: #6a737c;
+    }
+
+
+
+		#floating-remote {
+			display: inline-block;
+			position: fixed;
+			right: 0;
+			bottom: 0;
+
+			width: 50px;
+			height: 50px;
+			background: white;
+
+			border: 2px solid black;
+
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		#floating-remote,
+		#floating-remote a:link,
+		#floating-remote a:focus,
+		#floating-remote a:visited {
+			text-decoration: none;
+			color: black;
+
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="top-nav">
+		<div id="title-section">
+			<h1 id="title-name">Find & Get Your Jobs !</h1>
+			<div id="remote-nav">
+				<h4><a href="./">← Go Back</a></h4>
+			</div>
+		</div>
+		<div id="search-box">
+			<form action="./result" method="get">
+				<input id="search-bar" placeholder="Search for jobs" required name="keyword" />
+        <button type="submit" id="search-button"><img src = "{{url_for('static', filename='icon/search-icon.png')}}" /></button>
+      </from>
+    </div>
+  </div>
+  <div id="container-top-wrapper">
+    <h2 id="result-num" class="container-top-content">Found {{resultNum}} results for &quot;{{searchingBy}}&quot;</h2>
+    <h2 id="export-anchor" class="container-top-content">
+      <a href="./export?keyword={{searchingBy}}">Export to CSV</a>
+    </h2>
+  </div>
+
+
+    <section id="job-container">
+      {% for result in results %}
+      <a href="{{result.link}}" class="job-rows-content" target="_blank">
+        <div>
+          <h1 class="job-content-title">{{result.title}}</h1>
+          <div class="job-content-coloc">
+            <span class="job-content-company">{{result.company}} –</span><span class="job-content-location"> {{result.company}}</span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+      
+    </section>
+
+    
+    <a href="#job-container">
+      <div id ="floating-remote">&nbsp↑&nbsp<br />Top</div>
+    </a>
+  </body>
+</html>

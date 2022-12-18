@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- 커서 올리면 올리면 왼쪽 보더에 불 들어오고 배경 살짝 회색인 형식으로 ㄱㄱ -->
+<html>
+  <head>
+    <title>Search Results</title>
+    <style>
+      section{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Search results</h1>
+    <h3>Found {{resultNum}} results for &quot;{{searchingBy}}&quot;</h3>
+    <a href='/export?keyword={{searchingBy}}'><p>Export to CSV</p></a>
+    <section>
+      <h4>Title</h4>
+      <h4>Compnay</h4>
+      <h4>Location</h4>
+      <h4>Link</h4>
+       {% for result in results %}
+       <span>{{result.title}}</span>
+       <span>{{result.company}}</span>
+       <span>{{result.location}}</span>
+       <a href='{{result.link}}' target='_blank'>Apply</a>
+       {% endfor %}
+    </section>
+  </body>
+</html>
